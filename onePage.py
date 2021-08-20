@@ -8,6 +8,6 @@ box = soup.find('article', class_='main-article')
 title = box.find('h1').get_text()
 transcript = box.find('div', class_='full-script')
 transcript = transcript.get_text(strip=True, separator=' ')
-print(soup.prettify())
+print(title)
 with open(f'examples/{title}.html', 'w') as file:
     file.write(transcript)

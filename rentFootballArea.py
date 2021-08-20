@@ -3,26 +3,20 @@ import requests
 from splinter import browser, Browser
 
 from .pages.locators import MainLocators
-
-browser = Browser('chrome')
-browser.visit(MainLocators.LINK)
-browser.fill('q',"снять в аренду футбольное поле")
-browser.find_by_name('btnK').click()
-
-result=requests.get(browser.url)
-content = result.text
-soup = BeautifulSoup(content, 'lxml')
-box = soup.find('div', class_='yuRUbf')
-links = [link['href'] for link in box.find_all('a', href=True)]
-for link in links:
-    result = requests.get(f'{link}')
-    content = result.text(strip=True, separator=' ')
-    soup = BeautifulSoup(content, 'lxml')
-    box1 = soup.find('h3', class_='zBAuLc').get_text()
-    print()
-    # title = box.find('h1')
-with open(f'examples/linksRent.txt', 'w') as file:
-        file.write(box1)
+# link=[]
+# for item in box:
+#     link.append({
+#         "link": item.find('a').get('href')
+#     })
+# print(link)
+#     # result = requests.get(f'{link}')
+#     # content = result.text(strip=True, separator=' ')
+#     # soup = BeautifulSoup(content, 'lxml')
+#     # box1 = soup.find('h3', class_='zBAuLc').get_text()
+#     # print()
+#     # title = box.find('h1')
+# with open(f'examples/linksRentlink.txt', 'w') as file:
+#         file.write(box.get_text())
 
 # class findLinksWriteToFile():
 #
@@ -50,3 +44,25 @@ with open(f'examples/linksRent.txt', 'w') as file:
 #
 #     with open(f'examples/{title}.txt', 'w') as file:
 #         file.write(transcript)
+
+
+
+browser = Browser('chrome')
+browser.visit(MainLocators.LINK)
+browser.fill('q',"снять в аренду футбольное поле")
+browser.find_by_name('btnK').click()
+
+result=requests.get(browser.url)
+content = result.text
+soup = BeautifulSoup(content, 'lxml')
+box = soup.find('div', class_='yuRUbf')
+links = [link['href'] for link in box.find_all('a', href=True)]
+for link in links:
+    result = requests.get(f'{link}')
+    content = result.text(strip=True, separator=' ')
+    soup = BeautifulSoup(content, 'lxml')
+    box1 = soup.find('h3', class_='zBAuLc').get_text()
+    print()
+    # title = box.find('h1')
+with open(f'examples/linksRent.txt', 'w') as file:
+        file.write(box1)
